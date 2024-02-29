@@ -133,9 +133,9 @@ struct TestView: View {
         
         guard let newTrack = Composition.addMutableTrack(withMediaType: trackType ?? .video , preferredTrackID: kCMPersistentTrackID_Invalid) else {return -1}
         
-        let activationTime = CMTime(value: CMTimeValue(sourceInfo["ActivationTime"] as? CMTimeValue ?? 0 ), timescale: 1000000)
-        let trimStart = CMTime(value: CMTimeValue(sourceInfo["TrimStart"] as? CMTimeValue ?? 0 ), timescale: 1000000)
-        let trimEnd = CMTime(value: CMTimeValue(sourceInfo["TrimEnd"] as? CMTimeValue ?? Int64(assetTrack.timeRange.duration.seconds) ), timescale: 1000000)
+        let activationTime = CMTimeMakeWithSeconds((sourceInfo["ActivationTime"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
+        let trimStart = CMTimeMakeWithSeconds((sourceInfo["TrimStart"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
+        let trimEnd = CMTimeMakeWithSeconds((sourceInfo["TrimEnd"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
         let trimmedTimerange = CMTimeRange(start: trimStart, end: trimEnd)
         
         do{
@@ -169,9 +169,9 @@ struct TestView: View {
         
         guard let newTrack = Composition.addMutableTrack(withMediaType: trackType ?? .video , preferredTrackID: kCMPersistentTrackID_Invalid) else {return -1}
         
-        let activationTime = CMTime(value: CMTimeValue(sourceInfo["ActivationTime"] as? CMTimeValue ?? 0 ), timescale: 1000000)
-        let trimStart = CMTime(value: CMTimeValue(sourceInfo["TrimStart"] as? CMTimeValue ?? 0 ), timescale: 1000000)
-        let trimEnd = CMTime(value: CMTimeValue(sourceInfo["TrimEnd"] as? CMTimeValue ?? Int64(assetTrack.timeRange.duration.seconds) ), timescale: 1000000)
+        let activationTime = CMTimeMakeWithSeconds((sourceInfo["ActivationTime"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
+        let trimStart = CMTimeMakeWithSeconds((sourceInfo["TrimStart"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
+        let trimEnd = CMTimeMakeWithSeconds((sourceInfo["TrimEnd"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
         let trimmedTimerange = CMTimeRange(start: trimStart, end: trimEnd)
         
         do{
@@ -193,9 +193,9 @@ struct TestView: View {
             return
         }
         
-        let activationTime = CMTime(value: CMTimeValue(sourceInfo["ActivationTime"] as? CMTimeValue ?? 0 ), timescale: 1000000)
-        let trimStart = CMTime(value: CMTimeValue(sourceInfo["TrimStart"] as? CMTimeValue ?? 0 ), timescale: 1000000)
-        let trimEnd = CMTime(value: CMTimeValue(sourceInfo["TrimEnd"] as? CMTimeValue ?? Int64(assetTrack.timeRange.duration.seconds) ), timescale: 1000000)
+        let activationTime = CMTimeMakeWithSeconds((sourceInfo["ActivationTime"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
+        let trimStart = CMTimeMakeWithSeconds((sourceInfo["TrimStart"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
+        let trimEnd = CMTimeMakeWithSeconds((sourceInfo["TrimEnd"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
         let trimmedTimerange = CMTimeRange(start: trimStart, end: trimEnd)
         
         trackToUpdate.removeTimeRange(trackToUpdate.timeRange)
@@ -220,7 +220,7 @@ struct TestView: View {
                 print("No tracks available with trackId: \(trackId)")
                 return
             }
-            let activationTime = CMTime(value: CMTimeValue(sourceInfo["ActivationTime"] as? CMTimeValue ?? 0 ), timescale: 1000000)
+            let activationTime = CMTimeMakeWithSeconds((sourceInfo["ActivationTime"] as? Double ?? 0) / 1000  , preferredTimescale: Int32(NSEC_PER_SEC))
             let timerange = track.timeRange
             track.removeTimeRange(timerange)
             do{
@@ -228,7 +228,7 @@ struct TestView: View {
             }catch{
                 print(error.localizedDescription)
             }
-                        
+            
             
         }
     }
